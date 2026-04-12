@@ -1,0 +1,63 @@
+# VivaModel - 8GPU - 3 Task (fold_clothes + toilet_paper + stack_box)
+# 7-frame: [blank, state, cam_left, cam_right, cam_high, future_state, value]
+# Mask:    [  1,    1,      1,         1,        1,          0,           0  ]
+# Data is shuffled across all tasks during training.
+
+common:
+  num_latent_frames: 7
+  video_height: 384
+  video_width: 320
+
+dataset:
+  tasks:
+    - task_id: "fold_clothes"
+      t5_embedding_path: "fold_shirt.pt"
+      data_paths:
+        - "data_path1"
+        - "data_path2"
+  compute_state_stats: true
+  future_offset: 50
+  max_samples: null
+
+model:
+  wan:
+    config_path: "weights/Wan2.2-TI2V-5B"
+    checkpoint_path: "weights/Wan2.2-TI2V-5B"
+    vae_path: "weights/Wan2.2-TI2V-5B/Wan2.2_VAE.pth"
+    precision: "bfloat16"
+    num_layers: 30
+
+training:
+  batch_size: 2
+  max_steps: null
+  max_epochs: 1
+  learning_rate: 4.0e-5
+  wan_learning_rate: 4.0e-5
+  weight_decay: 0.01
+  gradient_accumulation_steps: 1
+  loss_weight_future_state: 0.5
+  loss_weight_value: 1.0
+  scheduler_type: "linear"
+  warmup_steps: 500
+  cycle_length: 100000
+  f_max: 1.0
+  f_min: 0.1
+  grad_clip_norm: 1.0
+  use_amp: true
+
+system:
+  checkpoint_dir: "./checkpoints/fold_shirt"
+  log_level: "INFO"
+  log_interval: 50
+  save_interval: 1000
+  num_workers: 4
+  pin_memory: true
+
+logging:
+  report_to: "tensorboard"
+  tensorboard_log_dir: "./tensorboard"
+  run_name: "train-fold-shirt"
+
+resume:
+  checkpoint_path: null
+  reset_step: false
