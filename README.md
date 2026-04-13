@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/ebdbdf25-7a9d-45a1-ae4e-380b69e3298f
 
 **Out-of-domain**
 
-https://github.com/user-attachments/assets/5335212a-a087-45f4-816f-e5b717ca4f7d
+https://github.com/user-attachments/assets/1f6fe1da-114e-4f58-8640-a00dcc5db10e
 
 
 ## 🛠 Installation
