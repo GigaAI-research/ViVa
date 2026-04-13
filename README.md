@@ -41,62 +41,18 @@ https://github.com/user-attachments/assets/1f6fe1da-114e-4f58-8640-a00dcc5db10e
 
 ## 🛠 Installation
 
-<!-- First, clone the repository to your local machine:
-
 ```bash
-git clone https://github.com/AOLIAO12312/STORM
-cd STORM
+# 1. Create and activate the conda environment
+conda create -n viva python=3.11.10 -y
+conda activate viva
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Install flash-attn
+pip install flash-attn==2.7.4.post1 --no-build-isolation
 ```
 
-### 🐍 VMamba: Visual State Space Model
-
-It is highly recommended to use a **CUDA 12** compatible environment.
-
-```bash
-# Create and activate the environment
-conda create -n vmamba python=3.10 -y
-conda activate vmamba
-
-# Install core dependencies
-pip install torch==2.2 torchvision torchaudio triton pytest chardet yacs termcolor fvcore seaborn packaging ninja einops 
-pip install numpy==1.24.4 timm==0.4.12
-
-# Install Mamba SSM (Pre-compiled optimized kernels)
-pip install https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba_ssm-2.2.4+cu12torch2.2cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
-```
-
-### 📍 LocalMamba: Localized Scan Strategy
-
-```bash
-cd localmamba/
-conda create -n localmamba python=3.10 -y
-conda activate localmamba
-
-pip install torch==2.1 torchvision torchaudio
-cd causual-conv1d && pip install .
-cd ..
-cd mamba-1p1p1 && pip install .
-cd ..
-```
-
-### 🧊 PlainMamba: Simplified Architecture
-
-Best suited for **PyTorch 1.13.1**. If you encounter CUDA linking errors, try installing `cudatoolkit-dev`.
-
-```bash
-cd plainmamba/
-conda create -n plainmamba python=3.10 -y
-source activate plainmamba
-pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 -f https://download.pytorch.org/whl/torch_stable.html --no-cache
-conda install -c conda-forge cudatoolkit-dev # Optional, only needed when facing cuda errors
-pip install -U openmim
-mim install mmcv-full
-pip install mamba-ssm
-pip install mlflow fvcore timm lmdb
-pip install -e .
-``` -->
-
----
 
 ## 🚀 Quick Start
 
