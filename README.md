@@ -28,20 +28,15 @@ This is the official implementation of the paper: [ViVa: A Video-Generative Valu
 
 ## 🖼️ Visualization
 
-<!-- ![Visualization](assets/example_1.mp4 "Token Reduciton Visualization") -->
-
-<video src="assets/example_1.mp4" controls loop style="width: 100%; max-width: 800px;">
-  Token Reduction Visualization
-</video>
-
-<center>In-domain visualization.</center>
 
 
-<video src="assets/example_2.mp4" controls loop style="width: 100%; max-width: 800px;">
-  Out-of-domain
-</video>
+**In-domain**
 
-<center> Out-of-domain visualization.</center>
+https://github.com/user-attachments/assets/ebdbdf25-7a9d-45a1-ae4e-380b69e3298f
+
+**Out-of-domain**
+
+https://github.com/user-attachments/assets/5335212a-a087-45f4-816f-e5b717ca4f7d
 
 
 ## 🛠 Installation
