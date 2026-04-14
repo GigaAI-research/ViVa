@@ -5,4 +5,3 @@ logs/
 annotate.py
 config/train_8gpu_3task copy.yaml
 config/train_8gpu_fold_shirt copy.yaml
-requirements.txt

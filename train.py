@@ -1,7 +1,4 @@
-#!/usr/bin/env python
 # Training script for VivaModel
-# Viva: 7-frame structure predicting future state + value (no future camera images)
-
 import os
 
 import argparse

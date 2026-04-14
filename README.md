@@ -80,8 +80,22 @@ bash train_3task.sh
 
 ### 4. Inference
 
+Run inference using the trained ViVa model to predict values for task progress:
 
+```bash
 
+# Single-GPU inference
+python inference.py --num_gpus 1
+
+```
+### 5. Visualization
+Visualize the predicted values and future proprioception for specific episodes:
+
+```bash
+python visualization.py --data_path /path/to/dataset --checkpoint /path/to/checkpoint --config /path/to/config.yaml --episode 0
+```
+For inference and visualization, it is recommended to pass the --config argument to compute the training set state statistics. 
+This is used for the min-max normalization of state vectors, ensuring consistency between inference and training.
 
 ## 📝 Citation
 

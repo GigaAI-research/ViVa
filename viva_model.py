@@ -302,16 +302,13 @@ class VivaModel(nn.Module):
             latent[:, :, idx:idx+1] = torch.randn_like(latent[:, :, idx:idx+1])
 
         self.fm_scheduler.set_timesteps(num_inference_steps)
-        sigmas = self.fm_scheduler.sigmas
         for i, t in enumerate(self.fm_scheduler.timesteps):
             ts = torch.full((B,), t, device=device, dtype=self.dtype)
             pred = self.forward_denoise(
                 latent, ts, t5_embeddings, condition_mask, clean_latent)
-            dt = sigmas[i] - sigmas[i + 1] if i + 1 < len(sigmas) else sigmas[i]
             for idx in TARGET_INDICES:
-                latent[:, :, idx] = (
-                    latent[:, :, idx]
-                    - dt.to(device=device, dtype=self.dtype) * pred[:, :, idx])
+                latent[:, :, idx] = self.fm_scheduler.step(
+                    pred[:, :, idx], t, latent[:, :, idx])
 
         value_norm = extract_value_from_latent(latent)
         value = torch.clamp((value_norm + 1) / 2, 0, 1)
