@@ -75,7 +75,7 @@ python get_text_embedding.py
 Ensure the LeRobot dataset path and T5 embedding path are correctly set, then launch the training process.
 
 ```bash
-bash train_3task.sh
+bash train.sh
 ```
 
 ### 4. Inference
