@@ -3,7 +3,7 @@ import shutil
 from typing import Any
 
 import imageio
-from decord import VideoReader
+from .._decord_compat import VideoReader
 from PIL import Image
 
 from .. import utils

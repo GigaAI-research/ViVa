@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 
 import cv2
 import torch
-from decord import VideoReader
+from .._decord_compat import VideoReader
 
 
 class VideoReaderCV2:

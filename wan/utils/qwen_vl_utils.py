@@ -249,8 +249,38 @@ def _read_video_decord(ele: dict,) -> torch.Tensor:
     return video
 
 
+def is_torchcodec_available() -> bool:
+    import importlib.util
+
+    return importlib.util.find_spec("torchcodec") is not None
+
+
+def _read_video_torchcodec(ele: dict,) -> torch.Tensor:
+    """read video using torchcodec.VideoDecoder
+
+    Returns:
+        torch.Tensor: the video tensor with shape (T, C, H, W).
+    """
+    from torchcodec.decoders import VideoDecoder
+    video_path = ele["video"]
+    st = time.time()
+    decoder = VideoDecoder(video_path, dimension_order="NCHW")
+    if 'video_start' in ele or 'video_end' in ele:
+        raise NotImplementedError(
+            "not support start_pts and end_pts in torchcodec backend yet.")
+    total_frames = int(decoder.metadata.num_frames)
+    video_fps = float(decoder.metadata.average_fps)
+    logger.info(
+        f"torchcodec:  {video_path=}, {total_frames=}, {video_fps=}, time={time.time() - st:.3f}s"
+    )
+    nframes = smart_nframes(ele, total_frames=total_frames, video_fps=video_fps)
+    idx = torch.linspace(0, total_frames - 1, nframes).round().long().tolist()
+    return decoder.get_frames_at(indices=idx).data  # NCHW uint8
+
+
 VIDEO_READER_BACKENDS = {
     "decord": _read_video_decord,
+    "torchcodec": _read_video_torchcodec,
     "torchvision": _read_video_torchvision,
 }
 
@@ -263,6 +293,8 @@ def get_video_reader_backend() -> str:
         video_reader_backend = FORCE_QWENVL_VIDEO_READER
     elif is_decord_available():
         video_reader_backend = "decord"
+    elif is_torchcodec_available():
+        video_reader_backend = "torchcodec"
     else:
         video_reader_backend = "torchvision"
     logger.info(

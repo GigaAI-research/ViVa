@@ -8,7 +8,7 @@ from typing import Any
 
 import lmdb
 import numpy as np
-from decord import VideoReader
+from .._decord_compat import VideoReader
 from PIL import Image, ImageFile, PngImagePlugin
 
 from .. import utils

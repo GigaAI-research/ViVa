@@ -4,7 +4,7 @@ from typing import Any
 import imageio
 import numpy as np
 import torch
-from decord import VideoReader
+from ..._decord_compat import VideoReader
 from PIL import Image
 
 

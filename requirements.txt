@@ -15,7 +15,7 @@ omegaconf
 beautifulsoup4
 calflops
 controlnet-aux
-decord
+#decord -> x86
 easydict
 einops
 ftfy
