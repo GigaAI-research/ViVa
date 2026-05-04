@@ -11,7 +11,7 @@ dataset:
     - task_id: "fold_clothes"
       t5_embedding_path: "data/t5_embedding/fold_clothes/fold_clothes/fold_clothes.pt"
       data_paths:
-        - "data/lerobot_home/fold_clothes_aloha"
+        - "data/lerobot_home/fold_clothes_smoke"
   compute_state_stats: true
   future_offset: 50
   max_samples: null
