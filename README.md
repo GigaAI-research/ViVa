@@ -61,6 +61,8 @@ pip install flash-attn==2.7.4.post1 --no-build-isolation
 Download the 2.2-TI2V-5B weights and place them under weights/:
 ```bash
 huggingface-cli download Wan-AI/Wan2.2-TI2V-5B --local-dir weights/Wan2.2-TI2V-5B --local-dir-use-symlinks False
+# if you using higher version 
+hf download Wan-AI/Wan2.2-TI2V-5B --local-dir weights/Wan2.2-TI2V-5B
 ```
 
 ### 2. T5 Embedding

@@ -1,8 +1,8 @@
-torch==2.7.1
-torchvision==0.22.1
-torchaudio==2.7.1
-triton==3.3.1
-xformers==0.0.31.post1
+#torch==2.7.1
+#torchvision==0.22.1
+#torchaudio==2.7.1
+#triton==3.3.1
+#xformers==0.0.31.post1 #12.8 -> 0.0.35
 deepspeed==0.17.4
 transformers==4.54.1
 diffusers==0.34.0
@@ -32,7 +32,7 @@ nvidia-ml-py
 opencv-python
 opencv-python-headless
 paramiko
-pytorch-fid
+#pytorch-fid
 rtmlib
 scikit-image
 segment-anything
@@ -40,3 +40,5 @@ terminaltables
 tyro
 zmq
 #flash-attn==2.7.4.post1
+easydict
+diffusers
