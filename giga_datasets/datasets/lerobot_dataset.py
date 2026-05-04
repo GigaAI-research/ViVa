@@ -75,21 +75,35 @@ class LeRobotDataset(BaseDataset):
         if self.dataset is None:
             # Build metadata and optionally derive delta timestamps per stream
             repo_id = os.path.basename(self.data_path)
-            dataset_meta = _LeRobotDatasetMetadata(repo_id, root=self.data_path)
-            if self.delta_info is not None:
-                delta_timestamps = dict()
-                for delta_name, delta_size in self.delta_info.items():
-                    delta_timestamps[delta_name] = [i / dataset_meta.fps for i in range(delta_size)]
-            else:
-                delta_timestamps = None
-            # Use faster subclass that avoids temporary disk writes during conversion
-            self.dataset = FastLeRobotDataset(
-                repo_id,
-                root=self.data_path,
-                delta_timestamps=delta_timestamps,
-                video_backend='pyav',
-                **self.kwargs,
-            )
+            # lerobot 0.3.2's metadata constructor unconditionally calls
+            # get_safe_version(repo_id) which queries HF Hub, even when 'root'
+            # is a local directory and the dataset never existed on the Hub.
+            # Short-circuit by reading codebase_version from local info.json.
+            from lerobot.datasets import lerobot_dataset as _lr
+            import json as _json
+            _info_path = os.path.join(self.data_path, "meta", "info.json")
+            with open(_info_path, "r", encoding="utf-8") as _f:
+                _local_version = _json.load(_f).get("codebase_version", "v2.1")
+            _orig_gsv = _lr.get_safe_version
+            _lr.get_safe_version = lambda rid, rev: _local_version
+            try:
+                dataset_meta = _LeRobotDatasetMetadata(repo_id, root=self.data_path)
+                if self.delta_info is not None:
+                    delta_timestamps = dict()
+                    for delta_name, delta_size in self.delta_info.items():
+                        delta_timestamps[delta_name] = [i / dataset_meta.fps for i in range(delta_size)]
+                else:
+                    delta_timestamps = None
+                # Use faster subclass that avoids temporary disk writes during conversion
+                self.dataset = FastLeRobotDataset(
+                    repo_id,
+                    root=self.data_path,
+                    delta_timestamps=delta_timestamps,
+                    video_backend='torchcodec',
+                    **self.kwargs,
+                )
+            finally:
+                _lr.get_safe_version = _orig_gsv
             if self.data_size is not None:
                 assert self.data_size == len(self.dataset)
             else:
