@@ -105,6 +105,7 @@ If you find our work useful in your research, please consider citing our paper:
 @article{viva2026,
   title={ViVa: A Video-Generative Value Model for Robot Reinforcement Learning},
   author={Lv, Jindi and Li, Hao and Li, Jie and Nie, Yifei and Kong, Fankun and Wang, Yang and Wang, Xiaofeng and Zhu, Zheng and Ni, Chaojun and Deng, Qiuping and Li, Hengtao and Lv, Jiancheng and Huang, Guan},
+  journal={arXiv preprint arXiv:2604.08168}
   year={2026},
   url={http://arxiv.org/abs/2604.08168}
 }
